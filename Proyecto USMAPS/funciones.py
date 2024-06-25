@@ -110,8 +110,8 @@ def algruta(ubi,des):
         color="#FF0000",
         weight=5,
         ).add_to(edificioC)
-    web= edificioC.save('edificioC.html')
-    webbrowser.open('edificioC.html')
+    web= edificioC.save('templates\edificioC.html')
+
 
     
 

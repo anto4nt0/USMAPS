@@ -1,24 +1,32 @@
 from flask import Flask, request, render_template
-from ruta.funciones import algruta
+from funciones import algruta
 
 app = Flask(__name__)
-@app.route('/home')
+@app.route('/')
 def index():
     return render_template('index.html')
 @app.route('/mapa')
 def mapa():
     return render_template('mapa.html')
-@app.route('/home')
+@app.route('/about')
 def about():
-    return render_template('abour.html')
-@app.route('/mapa')
+    return render_template('about.html')
+@app.route('/gallery')
 def gallery():
-    return render_template('mapa.html')
-@app.route('/home')
+    return render_template('gallery.html')
+@app.route('/product')
 def product():
     return render_template('product.html')
-@app.route('/mapa')
+@app.route('/service')
 def service():
     return render_template('service.html')
+@app.route('/submit', methods=['POST'])
+def submit():
+    ubicacion_actual = request.form['ubi']
+    ubicacion_destino = request.form['des']
+    algruta(ubicacion_actual,ubicacion_destino)
+    # Aquí puedes procesar los datos, guardarlos en una base de datos, etc.
+    return render_template('edificioC.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
