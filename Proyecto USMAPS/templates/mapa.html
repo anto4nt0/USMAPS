@@ -19,11 +19,17 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="{{url_for('static', filename= 'lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename= 'lib/lightbox/css/lightbox.min.css')}}" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{{url_for('static', filename= 'css/style.css')}}" rel="stylesheet">
+    <style>
+        .error {
+            color: red;
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -69,7 +75,7 @@
     <div class="container-fluid position-relative nav-bar p-0">
         <div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
             <nav class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
-                <a href="index.html" class="navbar-brand d-block d-lg-none">
+                <a href="home" class="navbar-brand d-block d-lg-none">
                     <h1 class="m-0 display-4 text-primary"><span class="text-secondary">USM</span>APS</h1>
                 </a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -77,17 +83,14 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
-                        <a href="index.html" class="nav-item nav-link">Home</a>
-                        <a href="about.html" class="nav-item nav-link">Sobre nosotros</a>
-                        <a href="mapa.html" class="nav-item nav-link">Mapa</a>
+                        <a href="home" class="nav-item nav-link">Inicio</a>
+                        <a href="about" class="nav-item nav-link">Sobre nosotros</a>
                     </div>
-                    <a href="index.html" class="navbar-brand mx-5 d-none d-lg-block">
+                    <a href="home" class="navbar-brand mx-5 d-none d-lg-block">
                         <h1 class="m-0 display-4 text-primary"><span class="text-secondary">USM</span>APS</h1>
                     </a>
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="service.html" class="nav-item nav-link">Service</a>
-                        <a href="gallery.html" class="nav-item nav-link">Gallery</a>
-                        <a href="product.html" class="nav-item nav-link active">Lugares</a>
+                        <a href="mapa" class="nav-item nav-link">Mapa</a>
                     </div>
                 </div>
             </nav>
@@ -108,7 +111,9 @@
         </div>
     </div>
     <!-- Header End -->
-
+    <div id="map-container">
+        <iframe src='muestramapa' width="100%" height="450" frameborder="5"></iframe>
+    </div>
 
     <!-- Contact Start -->
     <div class="container-fluid py-5">
@@ -122,19 +127,19 @@
                 <div class="col-lg-9">
                     <div class="contact-form bg-light rounded p-5">
                         <div id="success"></div>
-                        <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                        <form action="/submit" method="POST" name="sentMessage" id="contactForm" novalidate="novalidate">
                             <div class="form-row">
                                 <div class="col-sm-6 control-group">
-                                    <input type="text" class="form-control p-4" id="ubi" placeholder="Ubicación actual" required="required" data-validation-required-message="Por favor ingresa tu ubicación" />
-                                    <p class="help-block text-danger"></p>
+                                    <input type="text" class="form-control p-4" id="ubi" name="ubi" placeholder="Ubicación actual" required="required" data-validation-required-message="Por favor ingresa tu ubicación" >
+                                    <p class="help-block text-danger error" id="error-ubi">Entrada no válida. Por favor ingresa un código válido.</p>
                                 </div>
                                 <div class="col-sm-6 control-group">
-                                    <input type="text" class="form-control p-4" id="des" placeholder="Ubicación de destino" required="required" data-validation-required-message="Por favot ingresa a la ubicación que quieres llegar" />
-                                    <p class="help-block text-danger"></p>
+                                    <input type="text" class="form-control p-4" id="des" name="des" placeholder="Ubicación de destino" required="required" data-validation-required-message="Por favor ingresa la ubicación a la que quieres llegar" />
+                                    <p class="help-block text-danger error" id="error-des">Entrada no válida. Por favor ingresa un código válido.</p>
                                 </div>
-                            <div>
-                                <button class="btn btn-primary btn-block py-3 px-5" type="submit" id="sendMessageButton">Send Message</button>
                             </div>
+                            <div class="mt-3">
+                                <button class="btn btn-primary btn-block py-3 px-5" type="submit" id="sendMessageButton">Enviar mensaje</button>
                             </div>
                         </form>
                     </div>
@@ -150,7 +155,7 @@
         <div class="container text-center py-5">
             <div class="row">
                 <div class="col-12 mb-4">
-                    <a href="index.html" class="navbar-brand m-0">
+                    <a href="home" class="navbar-brand m-0">
                         <h1 class="m-0 mt-n2 display-4 text-primary"><span class="text-secondary">USM</span>APS</h1>
                     </a>
                 </div>
@@ -163,14 +168,9 @@
                 <div class="col-12 mt-2 mb-4">
                     <div class="row">
                         <div class="col-sm-6 text-center text-sm-right border-right mb-3 mb-sm-0">
-                            <h5 class="font-weight-bold mb-2">Get In Touch</h5>
-                            <p class="mb-2">123 Street, New York, USA</p>
-                            <p class="mb-0">+012 345 67890</p>
-                        </div>
-                        <div class="col-sm-6 text-center text-sm-left">
-                            <h5 class="font-weight-bold mb-2">Opening Hours</h5>
-                            <p class="mb-2">Mon – Sat, 8AM – 5PM</p>
-                            <p class="mb-0">Sunday: Closed</p>
+                            <h5 class="font-weight-bold mb-2">Ponerse en contacto</h5>
+                            <p class="mb-2">acortesb@usm.cl</p>
+                            <a href="https://github.com/anto4nt0/USMAPS" class="btn btn-primary mt-2">GITHUB</a>
                         </div>
                     </div>
                 </div>
@@ -187,22 +187,51 @@
     <!-- Back to Top -->
     <a href="#" class="btn btn-secondary px-2 back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
-
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/isotope/isotope.pkgd.min.js"></script>
-    <script src="lib/lightbox/js/lightbox.min.js"></script>
+    <script src="{{url_for('static', filename= 'lib/easing/easing.min.js')}}"></script>
+    <script src="{{url_for('static', filename= 'lib/waypoints/waypoints.min.js')}}"></script>
+    <script src="{{url_for('static', filename= 'lib/owlcarousel/owl.carousel.min.js')}}"></script>
+    <script src="{{url_for('static', filename= 'lib/isotope/isotope.pkgd.min.js')}}"></script>
+    <script src="{{url_for('static', filename= 'lib/lightbox/js/lightbox.min.js')}}"></script>
 
-    <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            const validEntries = ['Entrada desde el B','Entrada desde el P','Entrada desde el B','C201','C202','C203','C204','C206',
+            'C207','C208','C219','C221','C222','C223','C224','C225','C226','C227','C228','C229','C230','C231','C232','C233',
+            'C234','C235','C236','C237','C238','C239','C240','C242','C244','C245','C246','C247'];
+            const ubiInput = document.getElementById('ubi').value;
+            const desInput = document.getElementById('des').value;
+            const errorUbi = document.getElementById('error-ubi');
+            const errorDes = document.getElementById('error-des');
+            let isValid = true;
+
+            if (!validEntries.includes(ubiInput)) {
+                event.preventDefault();
+                errorUbi.style.display = 'block';
+                isValid = false;
+            } else {
+                errorUbi.style.display = 'none';
+            }
+
+            if (!validEntries.includes(desInput)) {
+                event.preventDefault();
+                errorDes.style.display = 'block';
+                isValid = false;
+            } else {
+                errorDes.style.display = 'none';
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="{{url_for('static', filename= 'js/main.js')}}"></script>
 </body>
 
 </html>

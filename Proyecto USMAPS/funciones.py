@@ -59,6 +59,20 @@ def ubiAcoor(archi1,ubi):
             coor.append(m)
             coor.append(n)
     return coor
+def ubicaciones_coordenadas(archivo, a):
+    coordenadas=[]
+    arch=leer_archivo(archivo)
+    for linea in arch:
+        datos= linea. strip().split('/')
+        if a==datos[0]:
+            n=float(datos[2])
+            m=float(datos[1])
+            coordenadas.append(n)
+            coordenadas.append(m)
+    return coordenadas
+        
+        
+    
 def algruta(ubi,des):
 
     G = nx.read_graphml('c.graphml')
@@ -100,11 +114,15 @@ def algruta(ubi,des):
     for i in la_ruta:
         n=ubiAcoor('salaPasillo.txt',i)
         rutacorta.append(n)
-
-
-    popuptext= '<b>ubicación</B>'
-    popuptext2= '<b>destino</B>'
-    edificioC= folium.Map(location=[-33.03598990, -71.5946348], zoom_start=22) 
+    ubicacion_inicio= ubicaciones_coordenadas('salaPasillo.txt',ubi)
+    ubicacion_destino= ubicaciones_coordenadas('salaPasillo.txt',des)
+    popuptext= '<b>Ubicación</B>'
+    popuptext2= '<b>Destino</B>'
+    edificioC= folium.Map(location=[-33.03598990, -71.5946348], zoom_start=22, zoom_on_click=True) 
+    url_geojson = 'EDIFICIO_C_MAPA.geojson'
+    folium.GeoJson(url_geojson, color= '#808080', weight= 2).add_to(edificioC)
+    folium.Marker(location=ubicacion_inicio, popup= popuptext).add_to(edificioC)
+    folium.Marker(location=ubicacion_destino, popup= popuptext2).add_to(edificioC)
     folium.plugins.AntPath(
         locations=rutacorta,
         color="#FF0000",
