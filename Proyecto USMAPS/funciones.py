@@ -1,7 +1,6 @@
 import networkx as nx
 import folium 
 from folium.plugins import MiniMap
-import webbrowser
 def leer_archivo(archivo):
     try:
         arch= open(archivo)
