@@ -24,7 +24,7 @@ Integrantes:
 ## ¿Que es USMAPS?
 
 USMAPS es un mapa guía para todos los estudiantes de la Santa María, pero especialmente para los estudiantes de primer y segundo año, la función sería similar a Google maps la diferencia radica en que el proyecto se implementara en la universidad Federico Santa María. 
-En USMAPS podrás buscar tu sala y por medio de obtención de ubicación mediante GPS, luego se le pregunta al usuario donde quiere ir y al obtener la información el software calcula la mejor ruta y al final se muestra mediante un mapa la ruta escogida.
+En USMAPS podrás buscar tu sala y por medio de obtención de la obtención de ubicación mediante un formulario, se le pregunta al usuario donde esta y donde quiere ir. Al obtener la información el software calcula la mejor ruta y al final se muestra mediante un mapa la ruta escogida.
 La Visualización y pasos a seguir
 
 ## Principal objetivo
